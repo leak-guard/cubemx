@@ -1,0 +1,7 @@
+.idea
+.settings
+cmake-build-debug
+Debug
+.cproject
+*.launch
+*.ld

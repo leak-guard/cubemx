@@ -1,0 +1,3 @@
+C:/Users/Philip/Documents/PWr/Studia/Sem 7/ZPI/cubemx/sensor_unit/cmake-build-debug/CMakeFiles/sensor_unit.elf.dir
+C:/Users/Philip/Documents/PWr/Studia/Sem 7/ZPI/cubemx/sensor_unit/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Philip/Documents/PWr/Studia/Sem 7/ZPI/cubemx/sensor_unit/cmake-build-debug/CMakeFiles/rebuild_cache.dir
