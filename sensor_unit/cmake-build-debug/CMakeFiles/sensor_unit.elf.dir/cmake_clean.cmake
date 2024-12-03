@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/sensor_unit.elf.dir/Core/Src/SX1278.c.obj"
+  "CMakeFiles/sensor_unit.elf.dir/Core/Src/SX1278.c.obj.d"
+  "CMakeFiles/sensor_unit.elf.dir/Core/Src/SX1278_hw.c.obj"
+  "CMakeFiles/sensor_unit.elf.dir/Core/Src/SX1278_hw.c.obj.d"
   "CMakeFiles/sensor_unit.elf.dir/Core/Src/adc.c.obj"
   "CMakeFiles/sensor_unit.elf.dir/Core/Src/adc.c.obj.d"
   "CMakeFiles/sensor_unit.elf.dir/Core/Src/gpio.c.obj"

@@ -69,7 +69,7 @@ uint8_t NewLine;
 SX1278_hw_t SX1278_hw;
 SX1278_t SX1278;
 
-uint8_t master = 1;
+uint8_t master = 0;
 int ret;
 
 char buffer[512];
@@ -93,8 +93,8 @@ void ESP_WaitForOK(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 //uint8_t writebuf[] = "Hello world from QSPI";
-uint8_t writebuf[] = "Giga ZYGA";
-uint8_t Readbuf[100];
+// uint8_t writebuf[] = "Giga ZYGA";
+// uint8_t Readbuf[100];
 /* USER CODE END 0 */
 
 /**
@@ -133,7 +133,7 @@ int main(void)
   MX_TIM1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  if (HAL_GPIO_ReadPin(BTN_UNLOCK_GPIO_Port, BTN_UNLOCK_Pin) == GPIO_PIN_RESET)
+  /*if (HAL_GPIO_ReadPin(BTN_UNLOCK_GPIO_Port, BTN_UNLOCK_Pin) == GPIO_PIN_RESET)
   {
     HAL_GPIO_TogglePin(LED_VALVE_GPIO_Port, LED_VALVE_Pin);
   }
@@ -170,7 +170,9 @@ int main(void)
   ESP_WaitForOK();
 
   ESP_Transmit(query_time);
-  ESP_WaitForOK();
+  ESP_WaitForOK();*/
+
+  HAL_GPIO_WritePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin, GPIO_PIN_SET);
 
   //initialize LoRa module
   SX1278_hw.dio0.port = LORA_DIO0_GPIO_Port;
@@ -197,42 +199,45 @@ int main(void)
     SX1278_LoRaEntryRx(&SX1278, 16, 2000);
   }
 
-  if (CSP_QUADSPI_Init() != HAL_OK) Error_Handler();
+  HAL_GPIO_WritePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin, GPIO_PIN_RESET);
+
+  // if (CSP_QUADSPI_Init() != HAL_OK) Error_Handler();
 
   // if (CSP_QSPI_Erase_Chip() != HAL_OK) Error_Handler();
 
-  if (CSP_QSPI_EnableMemoryMappedMode() != HAL_OK) Error_Handler();
+  // if (CSP_QSPI_EnableMemoryMappedMode() != HAL_OK) Error_Handler();
 
-  HAL_QSPI_Abort(&hqspi);
+  // HAL_QSPI_Abort(&hqspi);
 
-  if (CSP_QSPI_WriteMemory(writebuf, 0, sizeof(writebuf)) != HAL_OK) Error_Handler();
+  // if (CSP_QSPI_WriteMemory(writebuf, 0, sizeof(writebuf)) != HAL_OK) Error_Handler();
 
-  if (CSP_QSPI_EnableMemoryMappedMode() != HAL_OK) Error_Handler();
+  // if (CSP_QSPI_EnableMemoryMappedMode() != HAL_OK) Error_Handler();
 
   //  if (CSP_QSPI_Read(Readbuf, 0, 100) != HAL_OK) Error_Handler();
 
-  memcpy(Readbuf, (uint8_t *) 0x90000000, sizeof(writebuf));
+  // memcpy(Readbuf, (uint8_t *) 0x90000000, sizeof(writebuf));
 
   /*if (HAL_I2C_Mem_Write(&hi2c2, 0xA0, 0, sizeof(uint16_t), writebuf, sizeof(writebuf), 1000) == HAL_OK)
   {
     HAL_GPIO_TogglePin(LED_OK_GPIO_Port, LED_OK_Pin);
   }*/
-  char wbuf[30] = {0};
+  /*char wbuf[30] = {0};
   if (HAL_I2C_Mem_Read(&hi2c2, 0xA0, 0, sizeof(uint16_t), wbuf, sizeof(wbuf), 1000) == HAL_OK)
   {
     HAL_GPIO_TogglePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin);
-  }
+  }*/
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  for (uint16_t i = 0; i < 500; i++)
+  /*for (uint16_t i = 0; i < 500; i++)
   {
     // HAL_GPIO_TogglePin(BUZZER_OUT_GPIO_Port, BUZZER_OUT_Pin);
     HAL_GPIO_TogglePin(VALVE_OUT_GPIO_Port, VALVE_OUT_Pin);
     HAL_GPIO_TogglePin(LED_IMP_GPIO_Port, LED_IMP_Pin);
     HAL_Delay(1000);
-  }
+  }*/
+
   while (1)
   {
     if (master == 1)
@@ -254,20 +259,34 @@ int main(void)
     }
     else
     {
+      HAL_GPIO_WritePin(LED_OK_GPIO_Port, LED_OK_Pin, GPIO_PIN_SET);
+      HAL_Delay(100);
+      HAL_GPIO_WritePin(LED_OK_GPIO_Port, LED_OK_Pin, GPIO_PIN_RESET);
+
       printf("Slave ...\r\n");
       HAL_Delay(800);
       printf("Receiving package...\r\n");
 
+      memset(buffer, 0, sizeof(buffer));
+
       ret = SX1278_LoRaRxPacket(&SX1278);
-      printf("Received: %d\r\n", ret);
+
       if (ret > 0) {
         SX1278_read(&SX1278, (uint8_t*) buffer, ret);
-        printf("Content (%d): %s\r\n", ret, buffer);
+        // printf("Received: %d\r\n", ret);
+        // printf("Content (%d): %s\r\n", ret, buffer);
+
+        for (uint8_t i = 0; i < 5; i++)
+        {
+          HAL_GPIO_TogglePin(LED_VALVE_GPIO_Port, LED_VALVE_Pin);
+          HAL_Delay(100);
+        }
+
+        SX1278_LoRaEntryRx(&SX1278, 16, 2000);
       }
-      printf("Package received ...\r\n");
     }
 
-    HAL_GPIO_TogglePin(LED_WIFI_GPIO_Port, LED_WIFI_Pin);
+    /*HAL_GPIO_TogglePin(LED_WIFI_GPIO_Port, LED_WIFI_Pin);
     HAL_Delay(1000);
     HAL_GPIO_TogglePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin);
     HAL_Delay(1000);
@@ -276,7 +295,7 @@ int main(void)
     HAL_GPIO_TogglePin(LED_VALVE_GPIO_Port, LED_VALVE_Pin);
     HAL_Delay(1000);
     HAL_GPIO_TogglePin(LED_IMP_GPIO_Port, LED_IMP_Pin);
-    HAL_Delay(1000);
+    HAL_Delay(1000);*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -1,0 +1,27 @@
+CMakeFiles/sensor_unit.elf.dir/Core/Src/SX1278.c.obj: \
+ C:\Users\Philip\Documents\PWr\7_semestr\ZPI\cubemx\sensor_unit\Core\Src\SX1278.c \
+ C:\Users\Philip\Documents\PWr\7_semestr\ZPI\cubemx\sensor_unit\Core\Inc/SX1278.h \
+ C:/msys64/mingw64/lib/gcc/arm-none-eabi/13.3.0/include/stdbool.h \
+ C:/msys64/mingw64/lib/gcc/arm-none-eabi/13.3.0/include/stdint.h \
+ C:/msys64/mingw64/arm-none-eabi/include/stdint.h \
+ C:/msys64/mingw64/arm-none-eabi/include/machine/_default_types.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/features.h \
+ C:/msys64/mingw64/arm-none-eabi/include/_newlib_version.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/_intsup.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/_stdint.h \
+ C:\Users\Philip\Documents\PWr\7_semestr\ZPI\cubemx\sensor_unit\Core\Inc/SX1278_hw.h \
+ C:/msys64/mingw64/arm-none-eabi/include/string.h \
+ C:/msys64/mingw64/arm-none-eabi/include/_ansi.h \
+ C:/msys64/mingw64/arm-none-eabi/include/newlib.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/config.h \
+ C:/msys64/mingw64/arm-none-eabi/include/machine/ieeefp.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/reent.h \
+ C:/msys64/mingw64/arm-none-eabi/include/_ansi.h \
+ C:/msys64/mingw64/lib/gcc/arm-none-eabi/13.3.0/include/stddef.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/cdefs.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/_types.h \
+ C:/msys64/mingw64/arm-none-eabi/include/machine/_types.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/lock.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/_locale.h \
+ C:/msys64/mingw64/arm-none-eabi/include/strings.h \
+ C:/msys64/mingw64/arm-none-eabi/include/sys/string.h
